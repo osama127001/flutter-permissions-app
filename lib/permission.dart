@@ -39,7 +39,21 @@ class _PermissionWidgetState extends State<PermissionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile();
+    // There are 4 sections of ListTile(), 1: title, 2: subtitle, 3: trailing, 4: onTap
+    return ListTile(
+      title: Text(_permission.toString()),
+      subtitle: Text(
+        _permissionStatus.toString(),
+        style: TextStyle(
+          color: getPermissionColor(),
+        ),
+      ),
+      trailing: IconButton(
+        icon: Icon(Icons.info),
+        onPressed: () => checkServiceStatus(context, _permission),
+      ),
+      onTap: () => requestPermission(_permission),
+    );
   }
 
   void checkServiceStatus(BuildContext context, Permission permission) async {
@@ -57,6 +71,4 @@ class _PermissionWidgetState extends State<PermissionWidget> {
       _permissionStatus = status;
     });
   }
-
-
 }
